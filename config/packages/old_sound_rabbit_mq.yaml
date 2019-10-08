@@ -7,9 +7,20 @@ old_sound_rabbit_mq:
         new_webhook:
             connection:       default
             exchange_options: { name: 'tj.v1.new_webhook', type: direct }
+        update_user_info:
+            connection:       default
+            exchange_options: { name: 'tj.v1.update_user_info', type: direct }
+        new_comment:
+            connection:       default
+            exchange_options: { name: 'tj.v1.new_comment', type: direct }
     consumers:
         new_webhook:
             connection:       default
             exchange_options: { name: 'tj.v1.new_webhook', type: direct }
             queue_options:    { name: 'tj.v1.new_webhook'}
             callback:         App\Consumer\TjNewWebhookConsumer
+        update_user_info:
+            connection:       default
+            exchange_options: { name: 'tj.v1.update_user_info', type: direct }
+            queue_options:    { name: 'tj.v1.update_user_info'}
+            callback:         App\Consumer\TjUpdateUserInfoConsumer
