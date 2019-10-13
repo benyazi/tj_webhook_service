@@ -203,4 +203,16 @@ class TjUser
         $this->updateAt = $updateAt;
         return $this;
     }
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'id' => $this->getId(),
+            'tj_id' => $this->getTjId(),
+            'name' => $this->getName(),
+            'karma' => $this->getKarma()
+        ];
+    }
 }

@@ -25,6 +25,9 @@ services:
     App\Controller\WebhookController:
         arguments:
             - '@old_sound_rabbit_mq.new_webhook_producer'
+    App\Controller\ApiController:
+        arguments:
+            - '@app.tj.user'
     App\Consumer\TjNewWebhookConsumer:
         arguments:
             - '@app.tj.user'

@@ -28,7 +28,7 @@ class TjUserService
         if(empty($tjUser)) {
             $tjUser = new TjUser();
             $tjUser->setTjId($id);
-            $tjUser->setName($creatorData['name']);
+            $tjUser->setName(isset($creatorData['name'])?:'котик');
             $this->em->persist($tjUser);
         }
         $this->em->flush();
@@ -78,5 +78,16 @@ class TjUserService
             }
             sleep(1);
         }
+    }
+
+    public function getFullUserInfo($tjUserId)
+    {
+        $tjUser = $this->checkOrCreateUserByData([
+            'id' => $tjUserId
+        ]);
+        if($this->isUserNeedUpdateInfo($tjUser)) {
+            $this->updateUserInfo($tjUser->getId());
+        }
+        return $tjUser->toArray();
     }
 }
