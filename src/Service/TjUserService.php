@@ -58,10 +58,12 @@ class TjUserService
         $repository = $this->em->getRepository(TjUser::class);
         /** @var TjUser $tjUser */
         $tjUser = $repository->find($userId);
-        $client = new Api();
+        $client = new Api(Api::TJOURNAL, $_ENV['TJ_TOKEN']);
         if($tjUser->getTjId() > 0) {
             try {
+                echo 'Get user data from API'.PHP_EOL;
                 $userData = $client->getUser($tjUser->getTjId());
+                var_dump($userData);
                 $tjUser->setName($userData['name']);
                 $tjUser->setKarma((int)$userData['karma']);
                 $tjUser->setComments((int)$userData['counters']['comments']);
